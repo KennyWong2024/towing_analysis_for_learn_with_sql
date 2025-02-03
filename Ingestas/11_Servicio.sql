@@ -1,0 +1,2 @@
+-- No usar estos datos, utilizar los que genere el randomizador para evitar errores
+-- Hay que hacer varias ingestas segun se quiera, no basta con una para el caso de análisis planteado
