@@ -29,7 +29,7 @@ CREATE TABLE Gruas (
     placa_grua VARCHAR(25),
     marca_grua VARCHAR(25),
     modelo_grua VARCHAR(25),
-    annio_grua INT,
+    annio_grua FLOAT,
     tipo_grua VARCHAR(25),
     id_proveedor INT,
     FOREIGN KEY (id_proveedor) REFERENCES Proveedores(id_proveedor)  
@@ -40,7 +40,7 @@ CREATE TABLE Choferes (
     nombre_chofer VARCHAR(30),
     apellidos_chofer VARCHAR(30),
     mail_chofer VARCHAR(50),
-    telefono_chofer INT,
+    telefono_chofer FLOAT,
     id_unidad INT,
     FOREIGN KEY (id_unidad) REFERENCES Gruas(id_unidad)
 );
