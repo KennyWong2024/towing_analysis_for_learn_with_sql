@@ -1,3 +1,5 @@
+## Por si quiere evitar la ingesta via carga masiva, puede generar el INSERT por consola
+
 import random
 
 marcas = ["Isuzu", "Hino", "Nissan", "Volvo"]

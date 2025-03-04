@@ -1,4 +1,4 @@
--- No usar estos datos, utilizar los que genere el randomizador para evitar errores
+-- Puede utilizar estos datos o bien generarlos con el Script de python con el mismo fin.
 
 INSERT INTO Autos_Asegurados (placa_auto, marca_auto, modelo_auto, annio_auto, tipo_auto, id_cliente, id_poliza)
 VALUES

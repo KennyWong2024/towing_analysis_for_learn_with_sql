@@ -1,3 +1,6 @@
+## Se recomienda usar version 3
+
+## Esta versión genera el INSERT por consola copiar y pegar la query
 import random
 from datetime import datetime, timedelta
 

@@ -1,7 +1,10 @@
+## Solo si es necesario, esto genera un .csv para tabla choferes
+## Si se quiere realizar carga masiva, convertir el .csv a un xls (97 - 2003) <- Recomendado
 import random
 from collections import defaultdict
+import csv
 
-# Preventivo, por si usamos acentos en los nombres yu apellidos
+# Función para eliminar acentos
 def remove_accents(input_str):
     accents = {
         'á': 'a', 'é': 'e', 'í': 'i', 'ó': 'o', 'ú': 'u',
@@ -12,7 +15,7 @@ def remove_accents(input_str):
         input_str = input_str.replace(acc, no_acc)
     return input_str
 
-# Definir que nombres y apellidos vamos a usar para el randomizador
+# Definir nombres y apellidos
 nombres = ['Juan Carlos', 'Edgar', 'Allan', 'Esther', 'Judith', 'Pedro', 'José', 'Miguel', 
           'Ana María', 'Fernando', 'Sofia', 'Luisa', 'Susan', 'Kenny', 'Gabriel', 'Ricardo',
           'Andres', 'Dagoberto', 'Raul', 'Diego', 'Daniel', 'Freedy', 'Jimmy', 'Rodrigo',
@@ -34,10 +37,7 @@ apellidos = ['Gomez', 'Rodriguez', 'Gonzalez', 'Fernandez', 'Lopez', 'Ramos','Ch
             'Hidalgo', 'Esquivel', 'Fallas', 'Montoya', 'Monge', 'Peña', 'Bonilla',
             'Cedeño', 'Flores', 'León', 'Reyes', 'Bustos', 'Nájera', 'Mora']
 
-# Esto es con base a nuestro 25 proveedores ya creados donde
-# id_proveedor (Unicamente usado como llave), 
-# telefono_proveedor (Extraer la estructura para generar el de sus choferes), 
-# email_proveedor (Extraer el dominio para generar el de sus choferes)
+# Datos de proveedores
 proveedores = [
     (1, 88010000, 'gruastibas.cr'),
     (2, 88020000, 'gruascurridabat.cr'),
@@ -68,9 +68,10 @@ proveedores = [
 
 contador_proveedores = defaultdict(int)
 
-# Asiganción aleatroia de gruas
-# Aquí previamente ya definimos cuantas gruas iba a tener cada proveedor
-inserts_choferes = []
+# Lista para almacenar los datos de los choferes
+choferes = []
+
+# Generar los datos de los choferes
 for id_unidad in range(1, 99):
     id_proveedor = 0
     if id_unidad <= 3: id_proveedor = 1
@@ -105,9 +106,6 @@ for id_unidad in range(1, 99):
             dominio = p[2]
             break
 
-    # Generar número de teléfono
-    # Como la estructura es 8801 (01 el proveedor) y queremos que sus respectivos choferes tengan numeros semejantes
-    # Entonces simplemente sumamos 1 a la estructura general especifica al proveedor apuntado, para que sea 88010001
     contador_proveedores[id_proveedor] += 1
     telefono = telefono_base + contador_proveedores[id_proveedor]
 
@@ -118,9 +116,20 @@ for id_unidad in range(1, 99):
     apellido_limpio = remove_accents(apellido.replace(' ', '').lower())
     email = f"{inicial}{apellido_limpio}@{dominio}"
     
-    insert = f"('{nombre}', '{apellido}', '{email}', {telefono}, {id_unidad})"
-    inserts_choferes.append(insert)
+    choferes.append({
+        "nombre_chofer": nombre,
+        "apellidos_chofer": apellido,
+        "mail_chofer": email,
+        "telefono_chofer": telefono,
+        "id_unidad": id_unidad
+    })
 
-# Aquí es el generador del Query, esto nos devuelve la salida en la consola con la estructura pensada para SQL Server
-print("INSERT INTO Choferes (nombre_chofer, apellidos_chofer, mail_chofer, telefono_chofer, id_unidad) VALUES")
-print(",\n".join(inserts_choferes) + ";")
+with open('conductores.csv', mode='w', newline='', encoding='utf-8') as file:
+    writer = csv.DictWriter(file, fieldnames=["nombre_chofer", "apellidos_chofer", "mail_chofer", "telefono_chofer", "id_unidad"])
+    
+    writer.writeheader()
+
+    for chofer in choferes:
+        writer.writerow(chofer)
+
+print("Los datos han sido escritos en el archivo 'conductores.csv'")

@@ -1,1 +1,0 @@
--- No usar estos datos, utilizar los que genere el randomizador para evitar errores

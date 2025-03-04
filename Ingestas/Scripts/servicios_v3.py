@@ -1,10 +1,13 @@
+## Esta es la versión 3
+## Realiza la ingesta directamente a la base de datos
+
 import random
 from datetime import datetime, timedelta
 import pyodbc
 
 # Ejecutar pip install pyodbc
-server = r'Colocar_Servidor_Aquí'            # Servidor
-database = 'Colocar_Database_Aquí'                 # Base de datos
+server = r'Colocar_Servidor_Aquí'                   # Servidor
+database = 'Colocar_Database_Aquí'                  # Base de datos
 connection_string = f'DRIVER={{SQL Server}};SERVER={server};DATABASE={database};Trusted_Connection=yes;'
 
 # Conectar a la base de datos
@@ -64,7 +67,7 @@ for _ in range(NUM_SERVICIOS):
     
     # Insertar directamente en la base de datos
     cursor.execute("""
-        INSERT INTO Nombre_Tabla (fecha_hora, tipo_servicio, costo, kilometraje, id_cliente, id_chofer, id_coordinador)
+        INSERT INTO Servicios (fecha_hora, tipo_servicio, costo, kilometraje, id_cliente, id_chofer, id_coordinador)
         VALUES (?, ?, ?, ?, ?, ?, ?)
     """, fecha_sql, tipo_servicio, costo, kilometraje, id_cliente, id_chofer, id_coordinador)
 

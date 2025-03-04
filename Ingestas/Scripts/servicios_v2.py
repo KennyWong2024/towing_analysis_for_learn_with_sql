@@ -1,3 +1,6 @@
+## Se recomienda usar version 3
+
+## Esta versión genera un archivo .sql para copiar y pegar la query
 import random
 from datetime import datetime, timedelta
 

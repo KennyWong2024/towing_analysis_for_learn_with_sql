@@ -1,3 +1,5 @@
+## Solo si es necesario, esto genera un .csv para tabla gruas
+## Si se quiere realizar carga masiva, convertir el .csv a un xls (97 - 2003) <- Recomendado
 import random
 import csv
 
